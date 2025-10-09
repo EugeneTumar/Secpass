@@ -33,8 +33,7 @@ app.mount("/src", StaticFiles(directory=base_dir.__str__()+"/frontend/src"), nam
 
 @app.on_event("startup")
 async def startup_event_handler():
-    ...
-    #asyncio.create_task(init_models())
+    asyncio.create_task(init_models())
 
 @app.get("/")
 def main():
