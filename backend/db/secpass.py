@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, update
 
 from backend.errors.custom_exceptions import SecpassNotFound
 
@@ -43,9 +43,23 @@ async def db_get_secpass_by_id(id: int, session: AsyncSession) -> SecpassFullSch
         result = await session.execute(query)
         secpasses = result.one_or_none()
         if secpasses is None:
-            raise SecpassNotFound
+            raise SecpassNotFound()
         secpass = secpasses[0]
         return SecpassModelSchema(id=secpass.id, label=secpass.label, key_checker=secpass.key_checker, secpass=secpass.secpass, user_id=secpass.user_id)
+    
+    except Exception as e:
+        raise e
+    
+
+@connection
+async def db_update_secpass_label_by_id(id: int, new_label: str, session: AsyncSession) -> None:
+    try:
+        query = update(SecPassModel).where(SecPassModel.id==id).values(label=new_label).returning(SecPassModel.label)
+        result = await session.execute(query)
+        secpass_list = result.scalars().all()
+
+        if len(secpass_list)==0:
+            raise SecpassNotFound()
     
     except Exception as e:
         raise e

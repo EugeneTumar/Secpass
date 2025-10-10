@@ -22,7 +22,7 @@ async def signIn(signin_info: User_signin_schema) -> int:
     user = await db_get_user_by_signin(User(**crypt_user(signin_info)))
 
     if not user:
-        raise UserNotFound
+        raise UserNotFound()
     
     unique_session_key = await create_unique_session_key()
     session_info = Session_schema(session_key=unique_session_key, user_id=user.id)
@@ -63,18 +63,11 @@ async def get_user_by_session(session: str) -> UserOpenSchema:
     
     user = await db_get_user_by_id(user_id=user_id)
     if user is None:
-        raise UserNotFound
+        raise UserNotFound()
     return UserOpenSchema(id=user.id, name=user.name, login=user.login)
-
-async def get_user_by_request(session: str) -> UserOpenSchema:
-    return await get_user_by_session(session)
 
 async def get_user_id_by_session(session: str) -> User:
     user_id = await db_get_user_id_by_session(SessionKey(session_key = session))
     if user_id is None:
-        raise SessionNotFound
+        raise SessionNotFound()
     return user_id
-
-async def get_user_id_by_request(request: Request) -> User:
-    session = request.cookies.get("session")
-    return await get_user_id_by_session(session)
