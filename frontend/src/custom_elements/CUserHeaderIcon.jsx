@@ -4,7 +4,7 @@ import { DropdownMenu, Button } from "@radix-ui/themes";
 import { Label } from "@radix-ui/themes/components/context-menu";
 
 import { getUserBySession, logOut } from '../../scripts/auth'
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import styles from "../styles";
 
 function CUserHeaderIcon(props){
@@ -28,9 +28,9 @@ function CUserHeaderIcon(props){
     }
 
     return (
-    <DropdownMenu.Root>
-        {
+        
             user!=null ? 
+    <DropdownMenu.Root>
                 <>
                 <DropdownMenu.Trigger>
                     <button className={styles.baseButton+styles.button2}>
@@ -44,13 +44,15 @@ function CUserHeaderIcon(props){
                     <DropdownMenu.Item onClick={LogOutHandler}>Выйти</DropdownMenu.Item>
                 </DropdownMenu.Content>
                 </>
+        
+    </DropdownMenu.Root>
             :   
-            <button className={styles.baseButton+styles.button2} onClick={()=>{navigate('/signin')}}>
+            <Link to='/signin'>
+            <button className={styles.baseButton+styles.button2}>
                 Войти
             </button>
-        }
-        
-    </DropdownMenu.Root>)
+            </Link>
+        )
 }
 
 export default CUserHeaderIcon;
