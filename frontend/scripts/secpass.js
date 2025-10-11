@@ -29,3 +29,12 @@ export async function decryptSecpass(secpass, password) {
     const response = await axios.get(Setting.server.url + `/decryptsecpass`, {params: {secpass_id, secret_key, session}});
     return response.data;
 }
+
+export async function updateLabel(secpass, new_label) {
+    const secpass_id = secpass.id;
+    const label = new_label;
+    const session = getSession();
+
+    const response = await axios.get(Setting.server.url + `/updatesecpasslabel`, {params: {secpass_id, label, session}});
+    return response.data;
+}
