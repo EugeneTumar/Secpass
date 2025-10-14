@@ -9,7 +9,7 @@ function Header() {
   const navigate = useNavigate();
 
   return (
-    <div className='header flex flex-row items-center bg-custom-1'>
+    <div className='header flex flex-row items-center bg-custom-1 opacity-80 shadow-custom-3 shadow-md'>
       <Link to='/'>
       <img src="../public/logo.png" className='h-16' onClick={()=>{navigate('/')}}/>
       </Link>

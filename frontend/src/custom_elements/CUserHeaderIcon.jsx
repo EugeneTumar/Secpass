@@ -15,7 +15,7 @@ function CUserHeaderIcon(props){
         const fetchData = async () => {
                 try {
                     const user = await getUserBySession();
-                    SetUser(user)
+                    SetUser(user);
                 } catch (error) {
                     console.error("Load User Error:", error);
                 }
@@ -24,14 +24,13 @@ function CUserHeaderIcon(props){
     }, []);
 
     async function LogOutHandler() {
-        logOut()
+        await logOut();
+        SetUser(null);
     }
 
     return (
-        
-            user!=null ? 
-    <DropdownMenu.Root>
-                <>
+        user!=null ? 
+            <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
                     <button className={styles.baseButton+styles.button2}>
                         {user.name}
@@ -43,14 +42,12 @@ function CUserHeaderIcon(props){
                     <DropdownMenu.Item onClick={()=>{navigate('/secpasses')}}>Мои пароли</DropdownMenu.Item>
                     <DropdownMenu.Item onClick={LogOutHandler}>Выйти</DropdownMenu.Item>
                 </DropdownMenu.Content>
-                </>
-        
-    </DropdownMenu.Root>
+            </DropdownMenu.Root>
             :   
             <Link to='/signin'>
-            <button className={styles.baseButton+styles.button2}>
-                Войти
-            </button>
+                <button className={styles.baseButton+styles.button2}>
+                    Войти
+                </button>
             </Link>
         )
 }

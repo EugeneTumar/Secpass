@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const tailwindUtils = require('@dead404code/tailwind-utilities');
+
 export default {
   content: [
     "./index.html",
@@ -28,5 +31,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    tailwindUtils,
+  ],
 }

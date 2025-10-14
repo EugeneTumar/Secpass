@@ -3,6 +3,17 @@ import Cookies from 'js-cookie';
 import Setting from "../config";
 
 
+export async function SignUpFetch(name, login, password) {
+    if(name == null || login == null || password == null){
+        console.log("Sign up data null or undefined");
+        return false;
+    }
+        
+    await axios.post(Setting.server.url + `/signup`, {name: name, login:login, password:password});
+    await SignInFetch(login, password);
+    return true;
+}
+
 export async function SignInFetch(login, password) {
     if(login == null || password == null){
         console.log("Sign in data null or undefined");
@@ -22,7 +33,6 @@ export async function getUserBySession(){
     }
     catch(e)
     {
-        console.log(e); 
     }
 }
 

@@ -12,7 +12,7 @@ import SecpassPage from "./pages/SecpassPage.jsx";
 
 ReactDom.createRoot(document.getElementById('root')).render(
 	<Theme>
-    <div className="bg-custom-2 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-sky-950 to-indigo-800">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />

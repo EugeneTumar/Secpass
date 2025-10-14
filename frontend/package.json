@@ -28,6 +28,7 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@dead404code/tailwind-utilities": "^1.0.1-Patch",
     "@eslint/js": "^9.33.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
