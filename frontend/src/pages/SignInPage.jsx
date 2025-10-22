@@ -33,7 +33,7 @@ function SignInPage() {
             <Tabs.Root defaultValue="signin" className='self-center mt-6 w-1/3'>
                 <Tabs.List className='flex flex-row items-stretch justify-between min-w-56'>
                     <Tabs.Trigger className='text-custom-3 bg-custom-1 bg-opacity-20 backdrop-blur-sm w-1/2 rounded-tl-3xl [&[data-state="active"]]:bg-opacity-50' value="signin" on>Авторизация</Tabs.Trigger>
-                    <Tabs.Trigger className='text-custom-3 bg-custom-1 bg-opacity-20 backdrop-blur-sm  w-1/2 rounded-tr-3xl [&[data-state="active"]]:bg-opacity-50' value="documents">Регистрация</Tabs.Trigger>
+                    <Tabs.Trigger className='text-custom-3 bg-custom-1 bg-opacity-20 backdrop-blur-sm  w-1/2 rounded-tr-3xl [&[data-state="active"]]:bg-opacity-50' value="signup">Регистрация</Tabs.Trigger>
                 </Tabs.List>
 
                 <Box>
@@ -41,7 +41,7 @@ function SignInPage() {
                         <CSignIn/>
                     </Tabs.Content>
 
-                    <Tabs.Content value="documents">
+                    <Tabs.Content value="signup">
                         <CSignUp/>
                     </Tabs.Content>
 

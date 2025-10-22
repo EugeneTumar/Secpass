@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import { TextField, Box, Callout, Text, AlertDialog, Button, Inset, Flex, Theme } from "@radix-ui/themes";
 import { addSecpass } from '../../scripts/secpass';
+import styles from '../styles';
 
 
 function AddItemAlert(props) { 
-    const { rerenderCallback } = props;
+    const { rerenderCallback, ref } = props;
     const [ labelText, SetLabelText ] = useState('');
     const [ secpassText, SetSecpassText ] = useState('');
     const [ passwordText, SetPasswordText ] = useState('');
@@ -32,8 +33,8 @@ function AddItemAlert(props) {
 
     return (
         <AlertDialog.Root>
-            <AlertDialog.Trigger className='w-screen'>
-                <Button className='bg-green-800'>Создать секрет</Button>
+            <AlertDialog.Trigger className='m-1 float-left'>
+                <Button className={styles.baseButton+styles.button1+" text-xl"}>+</Button>
             </AlertDialog.Trigger>
             <Theme appearance='dark'>
                 <AlertDialog.Content maxWidth="450px" color="grey">

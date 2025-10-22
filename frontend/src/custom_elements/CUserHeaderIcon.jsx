@@ -7,21 +7,22 @@ import { getUserBySession, logOut } from '../../scripts/auth'
 import { Link, useNavigate } from "react-router";
 import styles from "../styles";
 
-function CUserHeaderIcon(props){
+function CUserHeaderIcon({rerenderValue}){
     const [user, SetUser] = useState(null);
     const navigate = useNavigate();
 
+    const fetchData = async () => {
+        try {
+            const user = await getUserBySession();
+            SetUser(user);
+        } catch (error) {
+            console.error("Load User Error:", error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-                try {
-                    const user = await getUserBySession();
-                    SetUser(user);
-                } catch (error) {
-                    console.error("Load User Error:", error);
-                }
-            };
         fetchData(); 
-    }, []);
+    }, [rerenderValue]);
 
     async function LogOutHandler() {
         await logOut();
@@ -38,7 +39,7 @@ function CUserHeaderIcon(props){
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
                     <Label>{user.name}</Label>
-                    <DropdownMenu.Item>Настройки</DropdownMenu.Item>
+                    <DropdownMenu.Item onClick={()=>{navigate('/settings')}}>Настройки</DropdownMenu.Item>
                     <DropdownMenu.Item onClick={()=>{navigate('/secpasses')}}>Мои пароли</DropdownMenu.Item>
                     <DropdownMenu.Item onClick={LogOutHandler}>Выйти</DropdownMenu.Item>
                 </DropdownMenu.Content>

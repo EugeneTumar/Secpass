@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router";
-import Header from "../custom_elements/Header";
 import { getSecpassList } from "../../scripts/secpass" ;
 import AddItemAlert from './AddItemAlert';
 import ItemAlert from './ItemAlert';
@@ -24,7 +22,7 @@ function SecpassList() {
     }, [count]);
 
     return (
-        <>
+        <div className="p-2">
             <div className='w-screen overflow-hidden'> 
                 {secpasses!=null?secpasses.map(
                     element => 
@@ -33,9 +31,9 @@ function SecpassList() {
                         key={element.secpass} 
                         item={element}>
                     </ItemAlert>):null}
+            <AddItemAlert className="float-left" rerenderCallback={increaseCount} ></AddItemAlert>
             </div>
-            <AddItemAlert rerenderCallback={increaseCount} ></AddItemAlert>
-        </>
+        </div>
     )
 }
 

@@ -1,6 +1,6 @@
 import asyncio
 from fastapi import Response
-from ..errors.custom_exceptions import AccessDenied, SessionNotFound, InvalidSecretKey, SecpassNotFound
+from ..errors.custom_exceptions import AccessDenied, SessionNotFound, InvalidSecretKey, SecpassNotFound, SimilarUserExist
 
 async def route_excepter(method, *args, **kwargs):
     try:
@@ -10,7 +10,8 @@ async def route_excepter(method, *args, **kwargs):
         return res
     except (SessionNotFound, AccessDenied):
         return Response(status_code=419)
-    except (InvalidSecretKey, SecpassNotFound):
+    except (InvalidSecretKey, SecpassNotFound, SimilarUserExist):
         return Response(status_code=400)
-    except Exception:
+    except Exception as e:
+        print(e)
         return Response(status_code=500)

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-import { Button } from "@radix-ui/themes";
 
 import CUserHeaderIcon from './CUserHeaderIcon'
 
-function Header() { 
+function Header({rerenderValue}) { 
   const navigate = useNavigate();
 
   return (
@@ -16,7 +15,7 @@ function Header() {
       <span className='mx-3 text-custom-3 text-2xl'>SecPass</span>
 
       <div className='ml-auto mr-2'>
-        <CUserHeaderIcon></CUserHeaderIcon>
+        <CUserHeaderIcon rerenderValue={rerenderValue}/>
       </div>
       
     </div>

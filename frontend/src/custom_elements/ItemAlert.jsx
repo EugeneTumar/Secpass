@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import axios from 'axios';
 
+import { VisuallyHidden } from "radix-ui";
 import { AlertDialog, Button, Inset, Flex } from "@radix-ui/themes";
 import { TrashIcon, Pencil1Icon, LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 
@@ -75,27 +76,27 @@ function ItemAlert(props) {
             <div className='m-1 w-fit float-left'>
                 <div className='flex' style={{ 'flexDirection': 'row' }}>
                     {decryptData != null ?
-                        <button className={styles.button1 + styles.baseButton + 'rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(decryptData)}>
+                        <button className={styles.button1 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(decryptData)}>
                             {decryptData}
                         </button>
-                        : <button className={styles.button1 + styles.baseButton + 'rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(item.label)}>
+                        : <button className={styles.button1 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(item.label)}>
                             {item.label}
                         </button>}
 
                     {decryptData == null ?
-                        <button className={styles.baseButton + 'bg-custom-5 flex-1'} onClick={() => SetOpenDecryptAlert(true)}>
+                        <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetOpenDecryptAlert(true)}>
                             <LockClosedIcon></LockClosedIcon>
                         </button>
-                        : <button className={styles.baseButton + 'bg-custom-5 flex-1'} onClick={() => SetDecryptData(null)}>
+                        : <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetDecryptData(null)}>
                             <LockOpen2Icon></LockOpen2Icon>
                         </button>}
 
                     
-                    <button className={styles.baseButton + 'bg-custom-6 flex-1'} onClick={() => SetOpenUpdateAlert(true)}>
+                    <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetOpenUpdateAlert(true)}>
                         <Pencil1Icon></Pencil1Icon>
                     </button>
 
-                    <button className={styles.baseButton + 'bg-custom-4 text-black rounded-r flex-1'} onClick={deleteSecpassHandler}>
+                    <button className={styles.baseButton + styles.button1 + 'border-l-0 rounded-r flex-1'} onClick={deleteSecpassHandler}>
                         <TrashIcon></TrashIcon>
                     </button>
                 </div>
@@ -103,8 +104,7 @@ function ItemAlert(props) {
 
             {/* Decrypt alert */}
             <AlertDialog.Root open={openDecryptAlert} onOpenChange={SetOpenDecryptAlert}>
-                <AlertDialog.Trigger><div></div></AlertDialog.Trigger>
-                    <AlertDialog.Title></AlertDialog.Title>
+                    <VisuallyHidden.Root><AlertDialog.Title/></VisuallyHidden.Root>
                     <AlertDialog.Content maxWidth="450px" className='bg-custom-1 text-custom-1'>
                         <Inset side="x" my="5" className='m-0 border-none'>
                             <input placeholder='Пароль' className={`${shakingPasswordField ? animatations.incorectInput : ''} bg-custom-1 text-custom-3 placeholder:text-custom-3border-0 focus:outline-none border-b w-full my-4`} onChange={(e) => textfieldChange(e, SetPasswordText)} value={passwordText}></input>
@@ -127,8 +127,7 @@ function ItemAlert(props) {
 
             {/* Update label alert */}
             <AlertDialog.Root open={openUpdateAlert} onOpenChange={SetOpenUpdateAlert}>
-                <AlertDialog.Trigger><div></div></AlertDialog.Trigger>
-                    <AlertDialog.Title></AlertDialog.Title>
+                    <VisuallyHidden.Root><AlertDialog.Title/></VisuallyHidden.Root>
                     <AlertDialog.Content maxWidth="450px" className='bg-custom-1 text-custom-1'>
                         <Inset side="x" my="5" className='m-0 border-none'>
                             <input placeholder='Новое название' 

@@ -50,6 +50,19 @@ export async function logOut() {
     }
 }
 
+export async function updateUser(user) {
+    try
+    {
+        let session = getSession();
+
+        await axios.post(Setting.server.url + `/updateuser?session=${session}`, user);
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+}
+
 export function getSession(){
     let res = Cookies.get('session');
     if(res==null){

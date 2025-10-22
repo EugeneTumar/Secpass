@@ -22,3 +22,8 @@ class AccessDenied(Exception):
     def __init__(self, message="Access denied", field=None):
         self.field = field
         super().__init__(message)
+
+class SimilarUserExist(Exception):
+    def __init__(self, message="Name or login is alredy taken", field=None):
+        self.field = field
+        super().__init__(message)

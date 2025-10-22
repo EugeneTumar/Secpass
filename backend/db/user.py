@@ -1,71 +1,78 @@
 import inspect
 
-from backend.errors.custom_exceptions import UserNotFound
+from backend.errors.custom_exceptions import UserNotFound, SimilarUserExist
 from ..models.user import User
 from ..database import connection
-from ..schemas.user import Full_user_schema, User_create_schema, User_schema, User_signin_schema
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete, update, insert
 
 @connection
 async def db_add_user(user: User, session: AsyncSession):
-    try:
-        session.add(user)
-        await session.commit()
-    except Exception as e:
-        frame = inspect.currentframe()
-        print(frame.f_code.co_name)
-        raise e
+    await db_check_for_similar_user(user, session)
+
+    session.add(user)
+    await session.commit()
 
 @connection
 async def db_del_user(user: User, session: AsyncSession):
-    try:
-        query = delete(User).where(User.id==user.id)
-        await session.execute(query)
-        session.expunge(User)
-        await session.commit()
-    except Exception as e:
-        frame = inspect.currentframe()
-        print(frame.f_code.co_name)
-        raise e
+    query = delete(User).where(User.id==user.id)
+    await session.execute(query)
+    session.expunge(User)
+    await session.commit()
 
-#might update password_hash only
 @connection
 async def db_update_user(user: User, session: AsyncSession):
-    try:
-        query = update(User).where(User.id==user.id).values(password_hash=user.password_hash)
-        await session.execute(query)
-        await session.commit()
-    except Exception as e:
-        frame = inspect.currentframe()
-        print(frame.f_code.co_name)
-        raise e
+    await db_check_for_similar_user(user, session)
+
+    query = update(User).where(User.id==user.id)
+
+    update_is_empty = True
+    if user.password_hash is not None:
+        query = query.values(password_hash=user.password_hash)
+        update_is_empty = False
+    if user.login is not None:
+        query = query.values(login=user.login)
+        update_is_empty = False
+    if user.name is not None:
+        query = query.values(name=user.name)
+        update_is_empty = False
+
+    if update_is_empty:
+        return None
+    await session.execute(query)
+    await session.commit()
     
 @connection
-async def db_get_user_by_signin(user: User, session: AsyncSession) -> Full_user_schema | None:
-    try:
-        query = select(User).where(User.login==user.login).where(User.password_hash==user.password_hash)
-        result = await session.execute(query)
-        record = result.scalar_one_or_none()
-        if record is None:
-            return None
-        return Full_user_schema(name=record.name, login=record.login, password_hash=record.password_hash, id=record.id)
-    except Exception as e:
-        frame = inspect.currentframe()
-        print(frame.f_code.co_name)
-        raise e
+async def db_get_user_by_signin(user: User, session: AsyncSession) -> User | None:
+    query = select(User).where(User.login==user.login).where(User.password_hash==user.password_hash)
+    result = await session.execute(query)
+    record = result.scalar_one_or_none()
+    if record is None:
+        return None
+    return record
 
 @connection
-async def db_get_user_by_id(user_id: int, session: AsyncSession):
-    try:
-        query = select(User).where(User.id==user_id)
-        result = await session.execute(query)
+async def db_get_user_by_id(user_id: int, session: AsyncSession) -> User:
+    query = select(User).where(User.id==user_id)
+    result = await session.execute(query)
         
-        record = result.scalar_one_or_none()
+    record = result.scalar_one_or_none()
 
-        if(record is None):
-            raise UserNotFound
+    if(record is None):
+        raise UserNotFound()
 
-        return record
-    except Exception as e:
-        raise e
+    return record
+
+async def db_check_for_similar_user(user: User, session: AsyncSession):
+    if user.login is None and user.name is None:
+        return None
+    login_condition = False
+    if user.login is not None:
+        login_condition = User.login==user.login
+    name_condition = False
+    if user.name is not None:
+        name_condition = User.name==user.name
+    query = select(User).where(login_condition or name_condition)
+    similar_user = (await session.execute(query)).scalars().all()
+    if len(similar_user) > 0:
+        raise SimilarUserExist()

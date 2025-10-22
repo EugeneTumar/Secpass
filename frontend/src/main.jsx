@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDom from 'react-dom/client'
 
 import { BrowserRouter, Routes, Route } from "react-router"
@@ -9,6 +8,7 @@ import './index.css'
 import MainPage from './pages/MainPage.jsx'
 import SignInPage from "./pages/SignInPage.jsx";
 import SecpassPage from "./pages/SecpassPage.jsx";
+import UserSettingsPage from "./pages/UserSettingsPage.jsx";
 
 ReactDom.createRoot(document.getElementById('root')).render(
 	<Theme>
@@ -18,6 +18,7 @@ ReactDom.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<MainPage />} />
         <Route path="/signin" element={<SignInPage/>} />
         <Route path="/secpasses" element={<SecpassPage/>} />
+        <Route path="/settings" element={<UserSettingsPage/>} />
         <Route path="*" element={<h2> не найден</h2>} />
       </Routes>  
     </BrowserRouter>

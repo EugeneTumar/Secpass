@@ -5,6 +5,7 @@ import { Box, Callout, TextField } from "@radix-ui/themes";
 import { loginValidationHint, nameValidationHint, passwordValidationHint } from '../../scripts/validate'
 import { SignUpFetch } from '../../scripts/auth'
 import styles from '../styles';
+import axios from 'axios';
 
 function CSignUp() {
     const navigate = useNavigate();
@@ -34,9 +35,18 @@ function CSignUp() {
         if(!CheckValidation(name, login, password)){
             return null;
         }
-
-        if(await SignUpFetch(name, login, password)){
-            navigate('/');
+        let responce
+        try{
+            if(responce = await SignUpFetch(name, login, password)){
+                navigate('/');
+            }
+        }
+        catch(e){
+            if(axios.isAxiosError(e)){
+                if(e.status==400){
+                    alert("Имя или логин уже заняты");
+                }
+            }
         }
 
     }
@@ -50,7 +60,7 @@ function CSignUp() {
             
             {nameHint!=''?
             <Callout.Root className='max-w-full' color="red">
-                <Callout.Text wrap="wrap" className='overflow-'>
+                <Callout.Text wrap="wrap">
                     {loginHint}
                 </Callout.Text>
             </Callout.Root>
@@ -62,7 +72,7 @@ function CSignUp() {
             
             {loginHint!=''?
             <Callout.Root className='max-w-full' color="red">
-                <Callout.Text wrap="wrap" className='overflow-'>
+                <Callout.Text wrap="wrap">
                     {loginHint}
                 </Callout.Text>
             </Callout.Root>
@@ -76,7 +86,7 @@ function CSignUp() {
             {passwordHint!=''?
 
             <Callout.Root className='max-w-full' color="red">
-                <Callout.Text wrap="wrap" className='overflow-'>
+                <Callout.Text wrap="wrap">
                     {passwordHint}
                 </Callout.Text>
             </Callout.Root>
