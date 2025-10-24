@@ -11,6 +11,19 @@ export function nameValidationHint(login){
     return res;
 }
 
+export function labelValidationHint(login){
+    let res = {result: true, hint:''};
+    ///6-20 leters, digit or '.', '-', '_'
+    var pattern=/^[a-zA-Z0-9_.-]{3,20}$/
+    
+    if(!pattern.test(login)){
+        res.hint = "Имя должено состоять из 3-20 букв, цифр или символов  '.', '-', '_'"
+        res.result=false;
+    }
+
+    return res;
+}
+
 export function loginValidationHint(login){
     let res = {result: true, hint:''};
     ///6-20 leters, digit or '.', '-', '_'

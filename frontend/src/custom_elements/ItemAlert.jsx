@@ -76,27 +76,27 @@ function ItemAlert(props) {
             <div className='m-1 w-fit float-left'>
                 <div className='flex' style={{ 'flexDirection': 'row' }}>
                     {decryptData != null ?
-                        <button className={styles.button1 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(decryptData)}>
+                        <button className={styles.button2 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(decryptData)}>
                             {decryptData}
                         </button>
-                        : <button className={styles.button1 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(item.label)}>
+                        : <button className={styles.button2 + styles.baseButton + 'border-r-0 rounded-l flex-1'} onClick={()=>navigator.clipboard.writeText(item.label)}>
                             {item.label}
                         </button>}
 
                     {decryptData == null ?
-                        <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetOpenDecryptAlert(true)}>
+                        <button className={styles.baseButton + styles.button2 + 'border-x-0 flex-1'} onClick={() => SetOpenDecryptAlert(true)}>
                             <LockClosedIcon></LockClosedIcon>
                         </button>
-                        : <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetDecryptData(null)}>
+                        : <button className={styles.baseButton + styles.button2 + 'border-x-0 flex-1'} onClick={() => SetDecryptData(null)}>
                             <LockOpen2Icon></LockOpen2Icon>
                         </button>}
 
                     
-                    <button className={styles.baseButton + styles.button1 + 'border-x-0 flex-1'} onClick={() => SetOpenUpdateAlert(true)}>
+                    <button className={styles.baseButton + styles.button2 + 'border-x-0 flex-1'} onClick={() => SetOpenUpdateAlert(true)}>
                         <Pencil1Icon></Pencil1Icon>
                     </button>
 
-                    <button className={styles.baseButton + styles.button1 + 'border-l-0 rounded-r flex-1'} onClick={deleteSecpassHandler}>
+                    <button className={styles.baseButton + styles.button2 + 'border-l-0 rounded-r flex-1'} onClick={deleteSecpassHandler}>
                         <TrashIcon></TrashIcon>
                     </button>
                 </div>

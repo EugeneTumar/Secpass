@@ -3,7 +3,7 @@ from fastapi.responses import Response
 
 from ..errors.custom_exceptions import AccessDenied, InvalidSecretKey, SecpassNotFound, SessionNotFound
 from ..utils.route_excepter import route_excepter
-from ..schemas.secpass import EncryptFormSchema, DecryptFormSchema
+from ..schemas.secpass import EncryptFormSchema, DecryptFormSchema, UpdateSecpassLabelSchema
 from ..services.secpass import add_secpass, del_secpass, get_secpass, get_secpass_list, update_secpass_label
 
 secpass_router = APIRouter()
@@ -28,6 +28,6 @@ async def encrypt_secpass_endpoint(secpass_id: int, secret_key: str, session: st
     return await route_excepter(get_secpass, DecryptFormSchema(secpass_id=secpass_id, secret_key=secret_key), session)
     
 
-@secpass_router.get('/updatesecpasslabel')
-async def update_secpass_label_endpoint(secpass_id: int, label: str, session: str):
-    return await route_excepter(update_secpass_label,secpass_id, label, session)
+@secpass_router.post('/updatesecpasslabel')
+async def update_secpass_label_endpoint(updateData: UpdateSecpassLabelSchema, session: str):
+    return await route_excepter(update_secpass_label, updateData, session)

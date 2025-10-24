@@ -23,3 +23,8 @@ class SecpassFullSchema(SecpassModelSchema):
 
 class DecryptSecpassSchema(SecpassShortSchema):
     data: str
+
+ 
+class UpdateSecpassLabelSchema(BaseModel):
+    secpass_id: int
+    label: str = Field(min_length=1, pattern='^\s*\S+\s*$')

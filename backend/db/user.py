@@ -66,13 +66,13 @@ async def db_get_user_by_id(user_id: int, session: AsyncSession) -> User:
 async def db_check_for_similar_user(user: User, session: AsyncSession):
     if user.login is None and user.name is None:
         return None
-    login_condition = False
     if user.login is not None:
-        login_condition = User.login==user.login
-    name_condition = False
-    if user.name is not None:
-        name_condition = User.name==user.name
-    query = select(User).where(login_condition or name_condition)
-    similar_user = (await session.execute(query)).scalars().all()
-    if len(similar_user) > 0:
-        raise SimilarUserExist()
+        query=select(User).where(User.login==user.login)
+        similar_user = (await session.execute(query)).scalars().all()
+        if len(similar_user) > 0:
+            raise SimilarUserExist()
+    if user.login is not None:
+        query=select(User).where(User.name==user.name)
+        similar_user = (await session.execute(query)).scalars().all()
+        if len(similar_user) > 0:
+            raise SimilarUserExist()

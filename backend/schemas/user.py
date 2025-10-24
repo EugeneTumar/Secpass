@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Annotated
 
 class UserSigninSchema(BaseModel):
     login: str = Field(max_length=32, min_length=4)
@@ -21,7 +22,7 @@ class FullUserSchema(UserSchema):
     id: int
 
 class UpdateUserSchema(BaseModel):
-    name: str | None
-    login: str | None
-    password: str | None
+    name: str | None = Field(max_length=32, min_length=3, default=None)
+    login: str | None = Field(max_length=32, min_length=4, default=None)
+    password: str | None = Field(max_length=32, min_length=8)
 

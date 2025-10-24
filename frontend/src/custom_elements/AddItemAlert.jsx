@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { TextField, Box, Callout, Text, AlertDialog, Button, Inset, Flex, Theme } from "@radix-ui/themes";
 import { addSecpass } from '../../scripts/secpass';
 import styles from '../styles';
+import { labelValidationHint, passwordValidationHint } from '../../scripts/validate';
 
 
 function AddItemAlert(props) { 
@@ -10,13 +11,29 @@ function AddItemAlert(props) {
     const [ secpassText, SetSecpassText ] = useState('');
     const [ passwordText, SetPasswordText ] = useState('');
 
-    async function CreateSecpassHandler() {
+    async function CreateSecpassHandler(e) {
         let secpass = {
             data: secpassText,
             label: labelText,
             key: passwordText,
         }
+        const nameValidation = labelValidationHint(labelText);
+        if(!nameValidation.result){
+            alert(nameValidation.hint);
+            e.preventDefault();
+            return;
+        }
+        const passwordValidation = passwordValidationHint(passwordText);
+        if(!passwordValidation.result){
+            alert(passwordValidation.hint);
+            e.preventDefault();
+            return;
+        }
+
         await addSecpass(secpass);
+        SetLabelText('');
+        SetPasswordText('');
+        SetSecpassText('');
         try{
             rerenderCallback();
         }
@@ -34,13 +51,13 @@ function AddItemAlert(props) {
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger className='m-1 float-left'>
-                <Button className={styles.baseButton+styles.button1+" text-xl"}>+</Button>
+                <button className={styles.baseButton+styles.button3}>+</button>
             </AlertDialog.Trigger>
             <Theme appearance='dark'>
                 <AlertDialog.Content maxWidth="450px" color="grey">
                     <AlertDialog.Title>Создание секрета</AlertDialog.Title>
                     <AlertDialog.Description></AlertDialog.Description>
-                    <Inset side="x" my="5">
+                    <Inset side="x" my="5" className='p-4'>
                         <Text>Название</Text>
                         <TextField.Root onChange={(e)=>textfieldChange(e, SetLabelText)} value={labelText}></TextField.Root>
                         <Text>Секрет</Text>

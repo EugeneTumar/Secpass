@@ -26,15 +26,3 @@
     color: white;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
-.how-work-link{
-    color: white;
-    text-decoration: none;
-    position: relative;
-    left: 50%;
-    transform: translate(-35%, -10vh);
-    text-align: center;
-    display: block;
-    
-    overflow: hidden;
-}

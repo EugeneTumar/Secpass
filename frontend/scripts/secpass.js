@@ -18,7 +18,7 @@ export async function addSecpass(secpass) {
 export async function deleteSecpass(secpass) {
     const session = getSession();
     const id = secpass.id;
-    await axios.post(Setting.server.url + `/delsecpass`, {}, {params: {session, id}});
+    await axios.post(Setting.server.url + `/delsecpass`, {params: {session, id}});
 }
 
 export async function decryptSecpass(secpass, password) {
@@ -35,6 +35,6 @@ export async function updateLabel(secpass, new_label) {
     const label = new_label;
     const session = getSession();
 
-    const response = await axios.get(Setting.server.url + `/updatesecpasslabel`, {params: {secpass_id, label, session}});
+    const response = await axios.post(Setting.server.url + `/updatesecpasslabel`, {secpass_id, label}, {params: {session}});
     return response.data;
 }

@@ -3,6 +3,7 @@ import CTextField from "../custom_elements/CTextField";
 import Header from "../custom_elements/Header"
 import styles from "../styles";
 import { updateUser } from "../../scripts/auth";
+import { loginValidationHint, nameValidationHint, passwordValidationHint } from "../../scripts/validate";
 
 
 
@@ -18,15 +19,33 @@ function UserSettingsPage() {
     };
 
     async function updateUserName() {
+        const validation = nameValidationHint(nameRef.current.value);
+        if(!validation.result){
+            alert(validation.hint);
+            return;
+        }
+
         const user = {name:nameRef.current.value, login:null, password:null };
         await updateUser(user);
         forceRerender();
     }
     async function updateUserLogin() {
+        const validation = loginValidationHint(nameRef.current.value);
+        if(!validation.result){
+            alert(validation.hint);
+            return;
+        }
+
         const user = {name:null, login:loginRef.current.value, password:null };
         updateUser(user);
     }
     async function updateUserPassword() {
+        const validation = passwordValidationHint(nameRef.current.value);
+        if(!validation.result){
+            alert(validation.hint);
+            return;
+        }
+
         const user = {name:null, login:null, password:passwordRef.current.value };
         updateUser(user);
     }
@@ -38,11 +57,11 @@ function UserSettingsPage() {
         <div className='flex justify-center'>
             <div className='flex flex-col items-start p-6 mt-6 w-11/12 min-h-12 bg-opacity-50 backdrop-blur-sm *:my-2 bg-custom-1 rounded-xl text-custom-3 [&>input]:bg-custom-1'>
                 <CTextField ref={nameRef} name='Изменить имя' placeholder="новое имя"/>
-                <button onClick={updateUserName} className={styles.baseButton+styles.button1}>Изменить имя</button>
+                <button onClick={updateUserName} className={styles.baseButton+styles.button2}>Изменить имя</button>
                 <CTextField ref={loginRef} name="Изменить логин" placeholder="новый логин"/>
-                <button onClick={updateUserLogin} className={styles.baseButton+styles.button1}>Изменить логин</button>
+                <button onClick={updateUserLogin} className={styles.baseButton+styles.button2}>Изменить логин</button>
                 <CTextField ref={passwordRef} name="Изменить пароль" placeholder="новый пароль"/>
-                <button onClick={updateUserPassword} className={styles.baseButton+styles.button1}>Изменить пароль</button>
+                <button onClick={updateUserPassword} className={styles.baseButton+styles.button2}>Изменить пароль</button>
             </div>
             
         </div>

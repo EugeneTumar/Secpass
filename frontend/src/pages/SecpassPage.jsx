@@ -1,34 +1,45 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+
 import Header from "../custom_elements/Header"
-import "./MainPage.css"
 import SecpassList from '../custom_elements/SecpassList';
+import "./MainPage.css"
 
-import { getUserBySession } from '../../scripts/auth'
-import { Spinner } from '@radix-ui/themes';
+import { getSession } from '../../scripts/auth'
 
-function SecpassPage() { 
-  const [isAuth, SetAuth] = useState(false);
+function SecpassPage() {  
+  const [rerender, setRerender] = useState(true);
   const navigate = useNavigate();
 
+  function reloadPage(){
+    setRerender(rerender);
+  }
+
+  const fetchData = async () => {
+    try {
+    } catch (error) {
+      console.error("Load User Error:", error);
+    }
+  };
+
+  function checkAuth() {
+    try{
+      alert(getSession());
+    }catch(e){ 
+      navigate('/signin');
+    }
+    return null
+  }
+  checkAuth();
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          if(await getUserBySession()!=null)
-            SetAuth(true);
-          else
-            navigate('/signin')
-        } catch (error) {
-          console.error("Load User Error:", error);
-        }
-      };
       fetchData(); 
     }, []);
 
   return (
+    
     <div className='app'>
-        <Header></Header>
-        {isAuth?<SecpassList></SecpassList>:<Spinner className='m-auto'/>}
+      <Header></Header>
+      <SecpassList></SecpassList>
     </div>
   )
 }

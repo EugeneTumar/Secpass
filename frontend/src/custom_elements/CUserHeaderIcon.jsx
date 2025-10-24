@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-import { DropdownMenu, Button } from "@radix-ui/themes";
+import { DropdownMenu } from "@radix-ui/themes";
 import { Label } from "@radix-ui/themes/components/context-menu";
 
 import { getUserBySession, logOut } from '../../scripts/auth'
 import { Link, useNavigate } from "react-router";
 import styles from "../styles";
+import global from "../globalVar";
+import MyContext from "../MyContext";
 
 function CUserHeaderIcon({rerenderValue}){
     const [user, SetUser] = useState(null);
     const navigate = useNavigate();
+    const reloadPage = useContext(MyContext);
 
     const fetchData = async () => {
         try {
@@ -27,13 +30,14 @@ function CUserHeaderIcon({rerenderValue}){
     async function LogOutHandler() {
         await logOut();
         SetUser(null);
+        navigate('/');
     }
-
+    global.user = user;
     return (
         user!=null ? 
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
-                    <button className={styles.baseButton+styles.button2}>
+                    <button className={styles.baseButton+styles.button3}>
                         {user.name}
                     </button>
                 </DropdownMenu.Trigger>
@@ -46,7 +50,7 @@ function CUserHeaderIcon({rerenderValue}){
             </DropdownMenu.Root>
             :   
             <Link to='/signin'>
-                <button className={styles.baseButton+styles.button2}>
+                <button className={styles.baseButton+styles.button3}>
                     Войти
                 </button>
             </Link>
