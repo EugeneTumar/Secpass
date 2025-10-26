@@ -54,6 +54,7 @@ function CSignUp() {
     return (
         <Box className='w-full flex flex-col items-stretch bg-opacity-50 backdrop-blur-sm *:my-4 bg-custom-1 p-8 rounded-b-3xl'>
             <TextField.Root
+                name='name'
                 placeholder="name" 
                 ref={nameInputRef} 
                 />
@@ -66,6 +67,7 @@ function CSignUp() {
             </Callout.Root>
             :''}
             <TextField.Root
+                name='login'
                 placeholder="login" 
                 ref={loginInputRef} 
                 />
@@ -79,6 +81,8 @@ function CSignUp() {
             :''
             }
             <TextField.Root  
+                name='password'
+                type='password'
                 placeholder="password" 
                 ref={passwordInputRef} 
                 validatehintfunc={passwordValidationHint}

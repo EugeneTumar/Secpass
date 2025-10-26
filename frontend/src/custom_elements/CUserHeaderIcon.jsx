@@ -6,13 +6,10 @@ import { Label } from "@radix-ui/themes/components/context-menu";
 import { getUserBySession, logOut } from '../../scripts/auth'
 import { Link, useNavigate } from "react-router";
 import styles from "../styles";
-import global from "../globalVar";
-import MyContext from "../MyContext";
 
 function CUserHeaderIcon({rerenderValue}){
     const [user, SetUser] = useState(null);
     const navigate = useNavigate();
-    const reloadPage = useContext(MyContext);
 
     const fetchData = async () => {
         try {
@@ -32,7 +29,6 @@ function CUserHeaderIcon({rerenderValue}){
         SetUser(null);
         navigate('/');
     }
-    global.user = user;
     return (
         user!=null ? 
             <DropdownMenu.Root>

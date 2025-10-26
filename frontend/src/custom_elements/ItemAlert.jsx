@@ -107,7 +107,7 @@ function ItemAlert(props) {
                     <VisuallyHidden.Root><AlertDialog.Title/></VisuallyHidden.Root>
                     <AlertDialog.Content maxWidth="450px" className='bg-custom-1 text-custom-1'>
                         <Inset side="x" my="5" className='m-0 border-none'>
-                            <input placeholder='Пароль' className={`${shakingPasswordField ? animatations.incorectInput : ''} bg-custom-1 text-custom-3 placeholder:text-custom-3border-0 focus:outline-none border-b w-full my-4`} onChange={(e) => textfieldChange(e, SetPasswordText)} value={passwordText}></input>
+                            <input type='password' name='decryptPassword' placeholder='Пароль' className={`${shakingPasswordField ? animatations.incorectInput : ''} bg-custom-1 text-custom-3 placeholder:text-custom-3border-0 focus:outline-none border-b w-full my-4`} onChange={(e) => textfieldChange(e, SetPasswordText)} value={passwordText}></input>
                         </Inset>
 
                         <Flex gap="3" mt="4" justify="end">

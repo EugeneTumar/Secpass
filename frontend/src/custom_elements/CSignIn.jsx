@@ -49,13 +49,14 @@ function CSignIn() {
             
             {loginHint!=''?
             <Callout.Root className='max-w-full' color="red">
-                <Callout.Text wrap="wrap" className='overflow-'>
+                <Callout.Text wrap="wrap" className=''>
                     {loginHint}
                 </Callout.Text>
             </Callout.Root>
             :''
             }
             <TextField.Root  
+                type='password'
                 placeholder="password" 
                 ref={passwordInputRef} 
                 validatehintfunc={passwordValidationHint}
@@ -63,7 +64,7 @@ function CSignIn() {
             {passwordHint!=''?
 
             <Callout.Root className='max-w-full' color="red">
-                <Callout.Text wrap="wrap" className='overflow-'>
+                <Callout.Text wrap="wrap" className=''>
                     {passwordHint}
                 </Callout.Text>
             </Callout.Root>

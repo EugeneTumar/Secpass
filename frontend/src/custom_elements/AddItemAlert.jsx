@@ -59,11 +59,11 @@ function AddItemAlert(props) {
                     <AlertDialog.Description></AlertDialog.Description>
                     <Inset side="x" my="5" className='p-4'>
                         <Text>Название</Text>
-                        <TextField.Root onChange={(e)=>textfieldChange(e, SetLabelText)} value={labelText}></TextField.Root>
+                        <TextField.Root name='secretLabel' onChange={(e)=>textfieldChange(e, SetLabelText)} value={labelText}></TextField.Root>
                         <Text>Секрет</Text>
-                        <TextField.Root onChange={(e)=>textfieldChange(e, SetSecpassText)} value={secpassText}></TextField.Root>
+                        <TextField.Root name='secretData' onChange={(e)=>textfieldChange(e, SetSecpassText)} value={secpassText}></TextField.Root>
                         <Text>Пароль</Text>
-                        <TextField.Root onChange={(e)=>textfieldChange(e, SetPasswordText)} value={passwordText}></TextField.Root>
+                        <TextField.Root type='password' name='decryptPassword' onChange={(e)=>textfieldChange(e, SetPasswordText)} value={passwordText}></TextField.Root>
                     </Inset>
 
                     <Flex gap="3" mt="4" justify="end">
