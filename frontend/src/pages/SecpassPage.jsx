@@ -24,7 +24,7 @@ function SecpassPage() {
 
   function checkAuth() {
     try{
-      alert(getSession());
+      getSession();
     }catch(e){ 
       navigate('/signin');
     }
