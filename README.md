@@ -10,17 +10,17 @@
 
 ### База данных
 - установить postgresql
-- создать базу данных "secpass"
+- создать базу данных `secpass`
 
 ### сервер
 - открыть терминал в папке backend
-- установить python зависимости 'pip install -r requirements.txt'
-- отредактировать backend/src/.env по шаблону 'DATABASE_URL=postgresql+asyncpg://логин:пароль@localhost:5432/secpass' подставляя данные пользователя postgresql
+- установить python зависимости `pip install -r requirements.txt`
+- отредактировать backend/src/.env по шаблону `DATABASE_URL=postgresql+asyncpg://логин:пароль@localhost:5432/secpass` подставляя данные пользователя postgresql
 - запустить backend/init.py
 
 ### UI
 - открыть терминал в папке /frontend
-- установить пакеты npm: 'npm install --force'
-- запустить сервер 'npm run dev'
+- установить пакеты npm: `npm install --force`
+- запустить сервер `npm run dev`
 
-сайт по умолчанию развертывается на 'localhost:5173'
+сайт по умолчанию развертывается на `localhost:5173`
