@@ -1,6 +1,6 @@
 import inspect
 
-from backend.errors.custom_exceptions import UserNotFound, SimilarUserExist
+from ..errors.custom_exceptions import UserNotFound, SimilarUserExist
 from ..models.user import User
 from ..database import connection
 from sqlalchemy.ext.asyncio import AsyncSession

@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete, update
 
-from backend.errors.custom_exceptions import SecpassNotFound
+from ..errors.custom_exceptions import SecpassNotFound
 
 from ..schemas.secpass import SecpassFullSchema, SecpassModelSchema, SecpassShortSchema
 from ..database import connection

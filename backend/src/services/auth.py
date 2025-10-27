@@ -1,6 +1,6 @@
 from fastapi import Request, Response
 
-from backend.models.session import SessionKey
+from ..models.session import SessionKey
 from ..models.user import User
 from ..schemas.user import UserSigninSchema, UserCreateSchema, UserOpenSchema
 from ..schemas.session import SessionKey_schema, Session_schema

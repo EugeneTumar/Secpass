@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.database import init_models
+from .database import init_models
 from .routing.auth import auth_Router
 from .routing.secpass import secpass_router
 
@@ -29,7 +29,6 @@ app.add_middleware(
 
 
 base_dir = Path(__file__).resolve().parent.parent
-app.mount("/src", StaticFiles(directory=base_dir.__str__()+"/frontend/src"), name="static")
 
 @app.on_event("startup")
 async def startup_event_handler():
